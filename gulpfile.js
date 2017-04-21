@@ -32,10 +32,10 @@ gulp.task('browserTest', ['scripts'], () => {
 gulp.task('browser-sync', () => {
   browserSync.init({
     server: {
-      baseDir: ['./src', './src/frontend'],
+      baseDir: ['./src'],
       index: 'index.html',
     },
-    port: process.env.PORT || 6000,
+    port: process.env.PORT || 6001,
     ui: false,
     ghostMode: false
 
@@ -52,9 +52,9 @@ gulp.task('karma', ['scripts'], (done) => {
 });
 
 gulp.task('watch', ['browser-sync', 'browserTest'], () => {
-  gulp.watch('./src/frontend/index.html').on('change', reload);
-  gulp.watch('./src/frontend/js/*.js', browserSync.reload);
-  gulp.watch('./src/frontend/css/*.css', browserSync.reload);
+  gulp.watch('./src/index.html').on('change', reload);
+  gulp.watch('./src/js/*.js', browserSync.reload);
+  gulp.watch('./src/css/*.css', browserSync.reload);
   gulp.watch(['./src/inverted-index.js', './jasmine/spec/*.js'], ['scripts']);
   gulp.watch(['./src/inverted-index.js', './jasmine/spec/*.js'], testBrowserSync.reload);
 });
