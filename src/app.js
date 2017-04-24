@@ -1,59 +1,40 @@
 const InvertedIndex = require('./inverted-index.js');
 
 const invertedIndex = new InvertedIndex();
+const reader = new FileReader();
+let files;
+const fileArray = ['<option value="" disable>Select File</option>'];
 
 function getFile(e) {
-  console.log(InvertedIndex.toString(), 'got here?');
-  e.preventDefault();
-  const fileArray = ['<option value="" disable>Select File</option>'];
-  const files = document.getElementById('upload').files;
+  reader.readAsText(files[0]);
+}
+function getOptions() {
+  files = document.getElementById('upload').files;
+  const someOptions = Array.from(files).map(x => `<option value=${x.name}>${x.name}</option>`);
+  const resultArray = fileArray.concat(someOptions);
+  document.getElementById('selectfile').innerHTML = resultArray.join('');
+}
+
+reader.onload = function (event) {
+  const fileContent = JSON.parse(event.target.result);
   for (let i = 0; i < files.length; i++) {
     console.log(files[i].name);
 
-    const reader = new FileReader();
-    reader.onload = function(event) {
-      console.log('Event.target', event.target.result);
-      // const contentArray = event.target.result;
-      const fileContent = JSON.parse(event.target.result);
-      console.log(fileContent, 'file Content', i);
 
-      if (Array.isArray(fileContent) && fileContent.length && fileContent[i].hasOwnProperty('title') && fileContent[i].hasOwnProperty('text')) {
-        fileArray.push('<option value="' + files[i].name + '">' + files[i].name + '</option>');
-        const ffff = invertedIndex.createIndex(files[i].name, fileContent);
-        const indexObject = invertedIndex.getIndex();
+    if (Array.isArray(fileContent) && fileContent.length && fileContent[i].hasOwnProperty('title') && fileContent[i].hasOwnProperty('text')) {
+      const ffff = invertedIndex.createIndex(files[i].name, fileContent);
+      const indexObject = invertedIndex.getIndex();
 
 
-        const display = ['<tr><td id="words"><b> Words Token </b></td><td id="book1"><b> Book 1 </b><td id="book2"><b> Book 2 </b></td></td></tr>'];
-        // alert('Yes ooo');
-        console.log(indexObject, '////');
-        window.x = indexObject;
-        for (const key in indexObject) {
-          display.push('<tr><td id="words" + key + >' + key + '<td>' + (indexObject[key].indexOf(0) > -1 ? 'mark' :'cancel') + '</td>' + '<td>' + (indexObject[key].indexOf(1) > -1 ? 'mark' :'cancel') + '</td>' + '</td></tr>');
-          console.log(indexObject[key], "hghjkkjhkjlljk")
-          document.getElementById('result').innerHTML = display.join(' ');
-          console.log(display.join(''));
-        }
-        // indexObject.forEach((key) => {
-        //   console.log('I got here', key);
-        // });
-
-        // for (const value in indexObject) {
-        //   const valueArray = ['<tr><td id="value">' + value + '</td></tr>'];
-        //   // document.getElementById('result').innerHTML= valueArray.join(' ');
-        //   console.log(value);
-        // }
-
-        // console.log('index still dey keteet', element);
-        // display.push('<td id="words" + key + >' + key + '</td>');
-        // });
-      }
-      // else {
-      //   alert('Wrong Content Format');
-      // }
-      document.getElementById('selectfile').innerHTML = fileArray.join('');
-    };
-    reader.readAsText(files[i]);
+      const display = ['<tr><td id="words"><b> Words Token </b></td><td id="book1"><b> Book 1 </b><td id="book2"><b> Book 2 </b></td></td></tr>'];
+      Object.keys(indexObject).map((key) => {
+        display.push(`<tr><td id="words" + key + >${key}<td>${indexObject[key].indexOf(0) > -1 ? 'mark' : 'cancel'}</td>` + `<td>${indexObject[key].indexOf(1) > -1 ? 'mark' : 'cancel'}</td>` + '</td></tr>');
+        document.getElementById('result').innerHTML = display.join(' ');
+      });
+    }
   }
-}
+};
 const fileInput = document.getElementById('upload');
-fileInput.addEventListener('change', getFile);
+const onSelect = document.getElementById('selectfile');
+onSelect.addEventListener('change', getFile);
+fileInput.addEventListener('change', getOptions);

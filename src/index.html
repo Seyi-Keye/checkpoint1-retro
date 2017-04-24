@@ -1,14 +1,14 @@
 <html>
   <head>
-    <title>Inverted Index Retro</title>
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">-->
-  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"/>-->
-  <!--<script src="./../materialize.min.css"/>
+    <title>InvertedIndex Retro</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <!--<script src="./../materialize.min.css"/>
   <script src="./../materialize.min.js"/>-->
 
   </head>
   <body>
-    <!--<nav>
+    <nav>
     <div class="nav-wrapper">
       <a href="#" class="brand-logo">Inverted Index Retro</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -16,31 +16,19 @@
         <li><a href="gettingStarted.html">Getting Started</a></li>
       </ul>
     </div>
-  </nav>-->
-
-    <p>Hello Inverted index</p>
-    <h1>Here</h1>
+  </nav>
     <form>
-    <label for="upload">Upload file</label><br>
+    <label for="upload"><h1>Upload file</h1></label><br>
     <input type="file" id="upload" multiple accept=".json"/>
-    <select name="selectFile" id="selectfile">
+    <select name="selectFile" id="selectfile" >
       <option value="" disable>Select File</option>
     </select>
 </form>
 <table id="result">
-  <tr>
-    <!--<th>Word Tokens</th>-->
-    <th>Book 1</th>
-    <th>Book 1</th>
-  </tr>
-
-  <tr>
-    <!--<td id="words">Jill</td>-->
-    <td id="present">Smith</td>
-    <td id="absent">50</td>
-  </tr>
 </table>
 
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"/></script>
   <script src="bundle.js"></script>
   </body>
 </html>
