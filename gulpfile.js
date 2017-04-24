@@ -14,12 +14,6 @@ const reload = browserSync.reload;
 gulp.task('default', ['scripts', 'watch', 'browser-sync', 'browserTest']);
 
 gulp.task('scripts', () => {
-  // return gulp.src('./src/app.js', { read: false })
-  //   .pipe(browserify({
-  //     transform: ['babelify'],
-  //   }))
-  //   .pipe(rename('bundle.js'))
-  //   .pipe(gulp.dest('./src'));
   browserify({ debug: true })
   .transform(babelify, {
         // Use all of the ES2015 spec
@@ -29,14 +23,6 @@ gulp.task('scripts', () => {
   .bundle()
   .pipe(source('bundle.js'))
   .pipe(gulp.dest('./src'));
-  // gulp.src('./src/inverted-index.js')
-  //   .pipe(browserify({
-  //     debug: true,
-  //     extensions: ['es6'],
-  //     entries: ['src/test.es6']
-  //   }))
-  //   .pipe(rename('bundle.js'))
-  //   .pipe(gulp.dest('jasmine/build'));
 });
 
 gulp.task('browserTest', ['scripts'], () => {
