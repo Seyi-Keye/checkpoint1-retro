@@ -1,9 +1,45 @@
 <html>
   <head>
     <title>Inverted Index Retro</title>
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">-->
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"/>-->
+  <!--<script src="./../materialize.min.css"/>
+  <script src="./../materialize.min.js"/>-->
+
   </head>
   <body>
+    <!--<nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Inverted Index Retro</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="about.html">About</a></li>
+        <li><a href="gettingStarted.html">Getting Started</a></li>
+      </ul>
+    </div>
+  </nav>-->
+
     <p>Hello Inverted index</p>
     <h1>Here</h1>
+    <form>
+    <label for="upload">Upload file</label><br>
+    <input type="file" id="upload" multiple accept=".json"/>
+    <select name="selectFile" id="selectfile">
+      <option value="" disable>Select File</option>
+    </select>
+</form>
+<table id="result">
+  <tr>
+    <th>Word Tokens</th>
+    <th>Book 1</th>
+    <th>Book 1</th>
+  </tr>
+  <tr>
+    <td id="words">Jill</td>
+    <td id="present">Smith</td>
+    <td id="absent">50</td>
+  </tr>
+</table>
+
+  <script src="bundle.js"></script>
   </body>
 </html>

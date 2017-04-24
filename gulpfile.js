@@ -4,17 +4,39 @@ const testBrowserSync = require('browser-sync').create();
 const karma = require('karma').Server;
 const path = require('path');
 const rename = require('gulp-rename');
-const browserify = require('gulp-browserify');
+const babelify = require('babelify');
+const browserify = require('browserify');
+const source = require('vinyl-source-stream');
+
 
 const reload = browserSync.reload;
 
 gulp.task('default', ['scripts', 'watch', 'browser-sync', 'browserTest']);
 
 gulp.task('scripts', () => {
-  gulp.src('jasmine/spec/inverted-index-test.js')
-    .pipe(browserify())
-    .pipe(rename('bundle.js'))
-    .pipe(gulp.dest('jasmine/build'));
+  // return gulp.src('./src/app.js', { read: false })
+  //   .pipe(browserify({
+  //     transform: ['babelify'],
+  //   }))
+  //   .pipe(rename('bundle.js'))
+  //   .pipe(gulp.dest('./src'));
+  browserify({ debug: true })
+  .transform(babelify, {
+        // Use all of the ES2015 spec
+    presets: ['es2015'],
+    sourceMaps: true })
+  .require('./src/app.js', { entry: true })
+  .bundle()
+  .pipe(source('bundle.js'))
+  .pipe(gulp.dest('./src'));
+  // gulp.src('./src/inverted-index.js')
+  //   .pipe(browserify({
+  //     debug: true,
+  //     extensions: ['es6'],
+  //     entries: ['src/test.es6']
+  //   }))
+  //   .pipe(rename('bundle.js'))
+  //   .pipe(gulp.dest('jasmine/build'));
 });
 
 gulp.task('browserTest', ['scripts'], () => {
@@ -53,7 +75,7 @@ gulp.task('karma', ['scripts'], (done) => {
 
 gulp.task('watch', ['browser-sync', 'browserTest'], () => {
   gulp.watch('./src/index.html').on('change', reload);
-  gulp.watch('./src/js/*.js', browserSync.reload);
+  gulp.watch('./src/bundle.js', browserSync.reload);
   gulp.watch('./src/css/*.css', browserSync.reload);
   gulp.watch(['./src/inverted-index.js', './jasmine/spec/*.js'], ['scripts']);
   gulp.watch(['./src/inverted-index.js', './jasmine/spec/*.js'], testBrowserSync.reload);

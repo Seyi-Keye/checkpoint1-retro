@@ -6,8 +6,6 @@ class InvertedIndex {
   createIndex(fileName, fileContent) {
     this.file[fileName] = fileContent;
     this.currentFile = fileContent;
-    const contentArray = [];
-    this.getIndex();
   }
 
   static tokenize(text) {
@@ -20,6 +18,7 @@ class InvertedIndex {
 
   getIndex() {
     const tokenArray = {};
+    console.log('currentFFFFile', this.currentFile);
     this.currentFile.forEach((element, index) => {
       const text = element.text.split(' ');
       const token = Array.from(new Set(InvertedIndex.tokenize(text)));
@@ -52,3 +51,5 @@ class InvertedIndex {
     console.log(result, 'whatever');
   }
 }
+
+module.exports = InvertedIndex;
