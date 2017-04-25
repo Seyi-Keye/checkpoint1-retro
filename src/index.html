@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <title>InvertedIndex Retro</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <!--<script src="./../materialize.min.css"/>
+  <script src="./../materialize.min.js"/>-->
+
+  </head>
+  <body>
+    <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Inverted Index Retro</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><form><input placeholder="Search" accept=".txt" type="text"/></form></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Getting Started</a></li>
+      </ul>
+    </div>
+  </nav>
+    <form>
+    <label for="upload"><h1>Upload file</h1></label><br>
+    <input type="file" id="upload" multiple accept=".json"/>
+    <select name="selectFile" id="selectfile" >
+      <option value="" disable>Select File</option>
+    </select>
+</form>
+<table id="result">
+</table>
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"/></script>
+  <script src="bundle.js"></script>
+  </body>
+</html>
