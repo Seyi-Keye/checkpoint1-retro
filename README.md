@@ -1,5 +1,5 @@
 ## Inverted-Index-Retro
-```This is my inverted index application with pure Javascript for both frontend and backend. No external frame work was used. enjoy.```
+```This is my inverted index application with pure Javascript for both frontend and backend. No external frame work was used, enjoy.```
 
 ## Introduction
 Inverted index takes a JSON array of text objects and creates an index from the array. The index allows a user to search for text blocks in the array that contain a specified collection of words.
@@ -18,7 +18,6 @@ To use this application, upload any JSON file of your choice that has the format
 ]
 ```
 This application creates an Inverted Index from each text property of the JSON file. After creating the index, you can search for a word (or multiple words) in a single file or all files.
-
 
 ## getting Started
 #### Local installation
@@ -55,5 +54,5 @@ This launches the app on your default browser on http://localhost:5000
  4. Commit your changes: `git commit -m "new feature"`
  5. Push to the remote branch: `git push origin new-feature`
 
- ##Thank you
+ ## Thank you
 

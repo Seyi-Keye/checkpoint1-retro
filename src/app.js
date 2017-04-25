@@ -6,6 +6,7 @@ const InvertedIndex = require('./inverted-index.js');
 const invertedIndex = new InvertedIndex();
 const reader = new FileReader();
 let files;
+let display;
 let fileData;
 const fileArray = ['<option value="" disable>Select File</option>'];
 
@@ -15,6 +16,7 @@ const fileArray = ['<option value="" disable>Select File</option>'];
  * @return {void}
  **/
 function getFile(e) {
+  e.preventDefault();
   reader.readAsText(fileData[e.target.value]);
 }
 
@@ -29,6 +31,7 @@ function getOptions() {
     acc[val.name] = val;
     return acc;
   }, {});
+  window.x = fileData;
   const someOptions = someFiles.map(x =>
   `<option value=${x.name}>${x.name}</option>`);
   const resultArray = fileArray.concat(someOptions);
@@ -38,6 +41,8 @@ function getOptions() {
 
 reader.onload = function readFile(event) {
   const fileContent = JSON.parse(event.target.result);
+  console.log(fileContent, 'file contnet');
+
   for (let i = 0; i < fileContent.length; i++) {
     if (Array.isArray(fileContent) && fileContent.length &&
     fileContent[i].hasOwnProperty('title') &&
@@ -45,8 +50,8 @@ reader.onload = function readFile(event) {
       const create = invertedIndex.createIndex(fileContent[i].name, fileContent);
       const indexObject = invertedIndex.getIndex();
 
-      const display =
-        [`<tr><td id="words"><b> Words Token </b></td><td id="book1"><b> Book 1
+      display =
+      [`<tr><td id="words"><b> Words Token </b></td><td id="book1"><b> Book 1
       </b><td id="book2"><b> Book 2 </b></td></td></tr>`];
       Object.keys(indexObject).map((key) => {
         display.push(`<tr><td id="words" + key + >${key}
