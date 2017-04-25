@@ -3,13 +3,34 @@ const InvertedIndex = require('./inverted-index.js');
 const invertedIndex = new InvertedIndex();
 const reader = new FileReader();
 let files;
+let fileData;
 const fileArray = ['<option value="" disable>Select File</option>'];
 
+/**
+ * getFile function
+ *
+ * @return
+ * **/
 function getFile(e) {
-  reader.readAsText(files[0]);
+  console.log(e.target.value, 'value');
+  reader.readAsText(fileData[e.target.value]);
 }
+
+/**
+ * getOptions function
+ *
+ * @return
+ * **/
 function getOptions() {
   files = document.getElementById('upload').files;
+  const someFiles = Array.from(files);
+  console.log(someFiles, 'somefiles');
+  fileData = someFiles.reduce((acc, val) => {
+    console.log('val', val.name);
+    acc[val.name] = val;
+    console.log('acc', acc)
+    return acc;
+  }, {});
   const someOptions = Array.from(files).map(x => `<option value=${x.name}>${x.name}</option>`);
   const resultArray = fileArray.concat(someOptions);
   document.getElementById('selectfile').innerHTML = resultArray.join('');
@@ -17,12 +38,12 @@ function getOptions() {
 
 reader.onload = function (event) {
   const fileContent = JSON.parse(event.target.result);
-  for (let i = 0; i < files.length; i++) {
-    console.log(files[i].name);
+  for (let i = 0; i < fileContent.length; i++) {
+    console.log(fileContent[i].name);
 
 
     if (Array.isArray(fileContent) && fileContent.length && fileContent[i].hasOwnProperty('title') && fileContent[i].hasOwnProperty('text')) {
-      const ffff = invertedIndex.createIndex(files[i].name, fileContent);
+      const ffff = invertedIndex.createIndex(fileContent[i].name, fileContent);
       const indexObject = invertedIndex.getIndex();
 
 
