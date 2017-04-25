@@ -1,3 +1,6 @@
+/**
+ * InvertedIndex javascript code for frontend
+ */
 const InvertedIndex = require('./inverted-index.js');
 
 const invertedIndex = new InvertedIndex();
@@ -8,17 +11,16 @@ const fileArray = ['<option value="" disable>Select File</option>'];
 
 /**
  * getFile function
- *
- * @return
- * **/
+ * @param {event} e
+ * @return {void}
+ **/
 function getFile(e) {
   reader.readAsText(fileData[e.target.value]);
 }
 
 /**
  * getOptions function
- *
- * @return
+ * @return {Object} acc to populate the select options
  * **/
 function getOptions() {
   files = document.getElementById('upload').files;
