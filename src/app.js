@@ -28,10 +28,11 @@ function getOptions() {
   fileData = someFiles.reduce((acc, val) => {
     console.log('val', val.name);
     acc[val.name] = val;
-    console.log('acc', acc)
+    console.log('acc', acc);
     return acc;
   }, {});
-  const someOptions = Array.from(files).map(x => `<option value=${x.name}>${x.name}</option>`);
+  const someOptions = Array.from(files).map(x =>
+  `<option value=${x.name}>${x.name}</option>`);
   const resultArray = fileArray.concat(someOptions);
   document.getElementById('selectfile').innerHTML = resultArray.join('');
 }
@@ -42,14 +43,21 @@ reader.onload = function (event) {
     console.log(fileContent[i].name);
 
 
-    if (Array.isArray(fileContent) && fileContent.length && fileContent[i].hasOwnProperty('title') && fileContent[i].hasOwnProperty('text')) {
+    if (Array.isArray(fileContent) && fileContent.length &&
+    fileContent[i].hasOwnProperty('title') &&
+    fileContent[i].hasOwnProperty('text')) {
       const ffff = invertedIndex.createIndex(fileContent[i].name, fileContent);
       const indexObject = invertedIndex.getIndex();
 
 
-      const display = ['<tr><td id="words"><b> Words Token </b></td><td id="book1"><b> Book 1 </b><td id="book2"><b> Book 2 </b></td></td></tr>'];
+      const display =
+        [`<tr><td id="words"><b> Words Token </b></td><td id="book1"><b> Book 1
+      </b><td id="book2"><b> Book 2 </b></td></td></tr>`];
       Object.keys(indexObject).map((key) => {
-        display.push(`<tr><td id="words" + key + >${key}<td>${indexObject[key].indexOf(0) > -1 ? 'mark' : 'cancel'}</td>` + `<td>${indexObject[key].indexOf(1) > -1 ? 'mark' : 'cancel'}</td>` + '</td></tr>');
+        display.push(`<tr><td id="words" + key + >${key}
+        <td>${indexObject[key].indexOf(0) > -1 ? 'mark' : 'cancel'}</td>` +
+        `<td>${indexObject[key].indexOf(1) > -1 ? 'mark' : 'cancel'}</td>` +
+        '</td></tr>');
         document.getElementById('result').innerHTML = display.join(' ');
       });
     }
