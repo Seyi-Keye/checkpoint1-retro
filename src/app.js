@@ -5,7 +5,7 @@ const InvertedIndex = require('./inverted-index.js');
 
 const invertedIndex = new InvertedIndex();
 const reader = new FileReader();
-let files;
+const reader2 = new FileReader();
 let display;
 let fileData;
 const fileArray = ['<option value="" disable>Select File</option>'];
@@ -20,26 +20,45 @@ function getFile(e) {
   reader.readAsText(fileData[e.target.value]);
 }
 
+function readFiles(someFiles) {
+  const shallowFiles = [...someFiles];
+  if (shallowFiles.length > 0) {
+    const file = shallowFiles.shift();
+    reader2.onloadend = function (loadEvent) {
+      console.log(loadEvent.target.result, 'results');
+      const fileContent = JSON.parse(loadEvent.target.result);
+      if (Array.isArray(fileContent) && fileContent.length &&
+        fileContent[0].hasOwnProperty('title') &&
+        fileContent[0].hasOwnProperty('text')) {
+        fileArray.push(`<option value=${file.name}>${file.name}</option>`);
+      }
+      readFiles(shallowFiles);
+    };
+    reader2.readAsText(file);
+  } else {
+    document.getElementById('selectfile').innerHTML = fileArray.join(' ');
+  }
+}
+
 /**
  * getOptions function
  * @return {Object} acc to populate the select options
  * **/
 function getOptions() {
-  files = document.getElementById('upload').files;
+  const files = document.getElementById('upload').files;
   const someFiles = Array.from(files);
   fileData = someFiles.reduce((acc, val) => {
     acc[val.name] = val;
     return acc;
   }, {});
-  window.x = fileData;
-  const someOptions = someFiles.map(x =>
-  `<option value=${x.name}>${x.name}</option>`);
-  const resultArray = fileArray.concat(someOptions);
-  document.getElementById('selectfile').innerHTML = resultArray.join('');
+  readFiles(files);
+  // const someOptions = someFiles.map(x =>
+  // `<option value=${x.name}>${x.name}</option>`);
+  // const resultArray = fileArray.concat(someOptions);
 }
 
 
-reader.onload = function readFile(event) {
+reader.onloadend = function readFile(event) {
   const fileContent = JSON.parse(event.target.result);
   console.log(fileContent, 'file contnet');
 
@@ -66,4 +85,6 @@ reader.onload = function readFile(event) {
 const fileInput = document.getElementById('upload');
 const onSelect = document.getElementById('selectfile');
 onSelect.addEventListener('change', getFile);
+// const myButton = document.getElementById('create');
+// myButton.addEventListener('click', getFile);
 fileInput.addEventListener('change', getOptions);

@@ -62,7 +62,7 @@ gulp.task('karma', ['scripts'], (done) => {
 gulp.task('watch', ['browser-sync', 'browserTest'], () => {
   gulp.watch('./src/index.html').on('change', reload);
   gulp.watch('./src/bundle.js', browserSync.reload);
-  gulp.watch('./src/css/*.css', browserSync.reload);
+  gulp.watch('./src*.css', browserSync.reload);
   gulp.watch(['./src/app.js', './jasmine/spec/*.js'], ['scripts']);
   gulp.watch(['./src/inverted-index.js', './jasmine/spec/*.js'], testBrowserSync.reload);
 });

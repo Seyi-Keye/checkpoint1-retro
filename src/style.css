@@ -2,3 +2,6 @@ select{
   display: inline-block !important;
   width: 10% !important;
 }
+nav{
+  background-color: #01579b !important;
+}
